@@ -10,6 +10,7 @@ var λ = function(expr) {
 This allows writing functions like this:
 ~~~
 var add = λ('a + b')
+
 add(8, 9) // returns 17
 ~~~
 The Function constructor takes argument names until the last parameter, which is the function body. This causes the arguments to bind to instances of a, b, c, etc the argument to λ.
