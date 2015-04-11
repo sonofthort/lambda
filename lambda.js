@@ -181,11 +181,11 @@ lambda.each = λ(λ.KV('a', 'b(v, k)'), 'a')
 	concat(lambda.letters.map(λ('[a, a]'))).
 	forEach(λ('λ.addPlaceholder(a[0], a[1])'))
 
-λ.localPlaceholders = function(header) {
-	header = header || ''
+λ.localPlaceholders = function(prefix) {
+	prefix = prefix || ''
 	var vars = []
 	lambda.each(λ.placeholders, function(v, k) {
-		vars.push(header + k + ' = λ.placeholders.' + k)
+		vars.push(prefix + k + ' = λ.placeholders.' + k)
 	})
 	return 'var ' + vars.join(', ')
 }
