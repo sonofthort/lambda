@@ -43,3 +43,32 @@ Break down:
 - If the last line of the function does not begin with a control statement, it is returned.
 - λ.kv is one of 6 looping functions. They loop over a collection (either an array or an object, or either in KV's case), expanding into inlined for-loops.
 - [] and [A, B] are detected as arrays, and arrays are converted to strings such as '[]' and '[A, B]'.
+# more cool stuff
+~~~
+eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
+
+// Use uppercase lambda, Λ, to add comments. Comments pertaining to the required variables are useful.
+
+// This function relies on the built-in javascript toString function dumping the function in its original form.
+// This makes it easy to write lambdas within lambdas, but just remember that each lambda will get its own a, b, c, etc parameters.
+var identity_func = Λ('value')(λa, λ(λA))
+
+indentity_func(6)() === 6
+
+// nil placeholder, replaced with 'null'
+// also, λ.r, which prefixes is argument with 'return '
+// λ.k loops over all keys of an object
+var firstKey = Λ('object')(λ.k(λa, λ.r(λk)), λnil)
+
+// the args placeholder is replaced with 'arguments'
+var make_interactive_webpage = Λ('messages...')(λ.iv(λargs, 'alert(v)'))
+
+make_interactive_webpage (
+	'Congradulations!!!',
+	'Welcome to my homepaeg',
+	'Click below to get started',
+	'Ok now just wait here'
+)
+
+//
+~~~
