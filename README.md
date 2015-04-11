@@ -52,7 +52,7 @@ eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
 // Comments pertaining to the required variables are useful.
 
 // This function relies on the built-in javascript toString
-// function dumping the function in its JavaScript text form.
+// function dumping the function in its readable JavaScript form.
 // This makes it easy to write lambdas within lambdas, but
 // just remember that each lambda will get its own a, b, c, etc parameters.
 var identity_func = Λ('value')(λa, λ(λA))
