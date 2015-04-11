@@ -26,7 +26,7 @@ keysAndValues({
 }) // returns [['left', 'right'], [1, -2]], order depending on hash however
 ~~~
 
-This also assumes placeholders are applied to the local scope, which explain where the a, A, b, B, k, and v variables are coming from. Let's break this down:
+This also assumes placeholders are applied to the local scope, which explain where the a, A, B, k, and v variables are coming from. Let's break this down:
 ~~~JavaScript
 eval(λ.localPlaceholders()) // creates placeholders in current scope
 
