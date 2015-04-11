@@ -43,6 +43,7 @@ Break down:
 - If the last line of the function does not begin with a control statement, it is returned.
 - λ.kv is one of 6 looping functions. They loop over a collection (either an array or an object, or either in KV's case), expanding into inlined for-loops.
 - [] and [A, B] are detected as arrays, and arrays are converted to strings such as '[]' and '[A, B]'.
+
 # more cool stuff
 ~~~
 eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
