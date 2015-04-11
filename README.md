@@ -26,7 +26,7 @@ keysAndValues({
 }) // returns [['left', 'right'], [1, -2]], order depending on hash however
 ~~~
 
-This is a function which returns a pair of parallel arrays, one of the keys and one of the values of an object. It also assumes placeholders are applied to the local scope, which explain where the a, A, b, B, k, and v variables are coming from. Let's break this down:
+This also assumes placeholders are applied to the local scope, which explain where the a, A, b, B, k, and v variables are coming from. Let's break this down:
 ~~~
 eval(λ.localPlaceholders()) // creates placeholders in current scope
 
