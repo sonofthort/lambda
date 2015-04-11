@@ -20,10 +20,11 @@ After adding some more complex features, I was able to write functions like this
 ~~~
 var keysAndValues = λ([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
 
+// example
 keysAndValues({
 	left: 1,
 	right: -2
-}) // returns [['left', 'right'], [1, -2]], depending on the hash
+}) // returns [['left', 'right'], [1, -2]], order depending on the hash
 ~~~
 
 This is a function which returns a pair of parallel arrays, one of the keys and one of the values of an object. It also assumes placeholders are applied to the local scope, which explain where the a, A, b, B, k, and v variables are coming from. Let's break this down:
