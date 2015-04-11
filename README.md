@@ -55,7 +55,7 @@ eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
 // function dumping the function in its readable JavaScript form.
 // This makes it easy to write λ's within λ's, but
 // just remember that each λ will get its own a, b, c, etc arguments,
-// so you must store the current arguments in a local variable.
+// so you must store the current arguments in local variables.
 var identity_func = Λ('value')(λa, λ(λA))
 
 indentity_func(6)() === 6
