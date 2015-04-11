@@ -1,7 +1,7 @@
 # lambda
 Use symbol λ in JavaScript to write succient functions.
-# Idea
-The first version of the function was this:
+# idea
+The first version of the function was like this:
 ~~~
 var λ = function(expr) {
 	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
