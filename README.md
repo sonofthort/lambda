@@ -31,6 +31,7 @@ A is a placeholder, a with toString() overloaded to return 'A', and the member '
 ~~~
 A(a, b) // returns 'A(a, b)'
 ~~~
+Break down:
 - Each parameter to λ is a line in the resulting function.
 - Lines that do not begin with some control statement (for, if, return, etc) are treated as variable initializations.
 - The first variable is named A for you, the second named B, and so on.
