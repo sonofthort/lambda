@@ -73,3 +73,16 @@ make_interactive_webpage (
 	'Ok now just wait here'
 )
 ~~~
+
+# Overhead
+If you take a look at the source, you will notice that there is some non-trivial overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
+~~~JavaScript
+var someFrequentlyCalledFunction = function(values) {
+	return values.map(λ('a + 1'))
+}
+~~~
+Obviously, for this case, we could have easily wrote someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, causing one-time initialization with λ:
+~~~JavaScript
+var someFrequentlyCalledFunction = Λ('values')(λa.map(λ('a + 1')))
+~~~
+However, sometimes this is not so easy when a function has many lines. λ should be used for somewhat simple functions, as the readability suffers as complexity increases. Part of the hypothesis behind λ is that any program can be written in terms of simple functions which either consist of one return expression, or some variable initialization, followed by a single transformation between the variables and the arguments, followed by a return expression. My experience tells me that functions of this form are indicative of good design.
