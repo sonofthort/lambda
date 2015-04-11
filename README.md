@@ -27,7 +27,7 @@ eval(λ.localPlaceholders()) // creates placeholders in current scope
 
 A.push(k) // returns 'A.push(k)'
 ~~~
-A is a placeholder, a function with toString() overloaded to return 'A', and the member 'push' returning 'A.push(...)' (... is whatever parameters are passed to it). Calling a placeholder has this effect:
+A is a placeholder, a function with toString() overloaded to return 'A', and the member 'push' returning 'A.push(...)'. Calling a placeholder has this effect:
 ~~~
 A(a, b) // returns 'A(a, b)'
 ~~~
