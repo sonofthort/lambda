@@ -48,7 +48,8 @@ Break down:
 ~~~JavaScript
 eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
 
-// Use uppercase lambda, Λ, to add comments. Comments pertaining to the required variables are useful.
+// Use uppercase lambda, Λ, to add comments.
+// Comments pertaining to the required variables are useful.
 
 // This function relies on the built-in javascript toString
 // function dumping the function in its original form.
