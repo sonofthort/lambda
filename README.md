@@ -83,7 +83,7 @@ var someFrequentlyCalledFunction = function(values) {
 	return values.map(λ('a + 1'))
 }
 ~~~
-Obviously, for this case, we could have easily wrote someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, causing one-time initialization with λ:
+For this case, we could have easily wrote someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, taking advantage of one-time initialization:
 ~~~JavaScript
 var someFrequentlyCalledFunction = Λ('values')(λa.map(λ('a + 1')))
 ~~~
