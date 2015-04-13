@@ -1,5 +1,6 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions.
+Use symbol λ in JavaScript to write succient functions. λ hides the noise of common composition patterns.
+
 # Introduction
 The first version of the function was like this:
 ~~~JavaScript
@@ -83,8 +84,8 @@ var someFrequentlyCalledFunction = function(values) {
 	return values.map(λ('a + 1'))
 }
 ~~~
-For this case, we could have easily wrote someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, taking advantage of one-time initialization:
+For this case, we could have easily written someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, taking advantage of one-time initialization:
 ~~~JavaScript
 var someFrequentlyCalledFunction = Λ('values')(λa.map(λ('a + 1')))
 ~~~
-However, sometimes this is not so easy when a function has many lines. λ should be used for somewhat simple functions, as the readability suffers as complexity increases. One hypothesis behind λ is that any program can and would benefit from being written in terms of small functions which either consist of one return expression, or some result variable initializations, followed by a single transformation between the result variables and the arguments, followed by a return expression. Still, there are cases where its much easier to write a regular function.
+However, sometimes this isn't easy when a function is very large or contains large literals. λ should be used for somewhat simple functions, as the readability suffers as complexity increases.
