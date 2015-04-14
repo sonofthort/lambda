@@ -20,7 +20,7 @@ var keysAndValues = function(object) {
 }
 ~~~
 
-# Introduction
+# Explanation
 Lets imagine we want to write some binary operator wrappers:
 ~~~JavaScript
 var add = function(a, b) {return a + b}
