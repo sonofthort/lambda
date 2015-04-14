@@ -63,7 +63,8 @@ var zip = function(a, b) {
 }
 
 // a short circuiting operation needs to hand roll a loop,
-// or needs another looping helper we didn't write here, and one which would do redundant branching.
+// or needs another looping helper we didn't write here
+// and one with its own added overhead
 var any = function(array, pred) {
 	var length = array.length
 	for (var i = 0; i < length; ++i) {
