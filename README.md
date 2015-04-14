@@ -46,9 +46,9 @@ var sub = λ('a - b')
 var mul = λ('a * b')
 var div = λ('a / b')
 ~~~
-We've eliminated the argument naming duplication. After all, we could have just as well used *x* and *y* or *left* and *right* in our original functions. There's some overhead in the Function constructor, but the result is just as performant as the previous functions.
+We've eliminated the argument naming duplication. After all, we could have just as well used *x* and *y* or *left* and *right* in our original functions. There's some overhead in creating these functions, but afterwards, are just as performant as our previous functions.
 
-This might be cute, but could we take on more verbose patterns as seen below?
+This might be cute, but could we take it even further and clean up looping and variable/return patterns?
 ~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
