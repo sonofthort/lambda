@@ -1,5 +1,5 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns.
+Use symbol λ in JavaScript to write succient functions.
 
 # Example
 ~~~JavaScript
