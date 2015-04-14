@@ -1,6 +1,5 @@
 # lambda
 Use symbol λ in JavaScript to write succient functions. Hides the noise of common composition patterns.
-
 # Introduction
 Lets imagine we want to write some simple functions to wrap binary operators:
 ~~~JavaScript
@@ -9,10 +8,11 @@ var sub = function(a, b) {return a - b}
 var mul = function(a, b) {return a * b}
 var div = function(a, b) {return a / b}
 ~~~
-What do all of these functions have in common besides being binary operator wrappers?
+From a minimalist perspective, what do all of these functions have in common besides being binary operator wrappers?
 - They return a transformation upon their arguments.
 - Their readability is largely independent of their argument names (could have used x and y). What is really important is that we can match an argument to its usage.
 - They require relatively verbose keywords.
+- 
 Arrow functions clean this up a little bit:
 ~~~JavaScript
 var add = (a, b) => a + b
