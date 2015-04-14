@@ -3,11 +3,12 @@ Use symbol λ in JavaScript to write succient functions. Hides noise found in co
 ~~~JavaScript
 var keysAndValues = λ([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
 
-// returns [['first', 'second'], [3, 4]], depending on hash
 keysAndValues({
 	'first': 3,
 	'second': 4
 })
+
+// returns [['first', 'second'], [3, 4]], depending on hash
 ~~~
 
 # Introduction
