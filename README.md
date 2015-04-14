@@ -48,7 +48,7 @@ var div = λ('a / b')
 ~~~
 We've eliminated the argument naming duplication. After all, we could have just as well used *x* and *y* or *left* and *right* in our original functions. There's some overhead in creating these functions, but afterwards, are just as performant as our previous functions.
 
-This might be cute, but could we take it even further and clean up looping and variable/return patterns?
+This might be cute, but could we take it even further and extract patterns found here:
 ~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
@@ -97,9 +97,8 @@ var any = function(array, pred) {
 
 
 ~~~
-These would be a nightmare in the current form of λ, and arrow functions wouldn't have been a large improvement either. Perhaps we can wrap up iteration and variable initialization/return patterns as well:
+These would be a nightmare in the current form of λ, and arrow functions wouldn't help much either. What if we could write the functions like this:
 ~~~JavaScript
-// iv and kv not used anymore
 var iv = λ(λ.iv(a, b(i, v)), a)
 var kv = λ(λ.kv(a, b(k, v)), a)
 var object_size = λ(0, λ.k(a, '++A'), A)
