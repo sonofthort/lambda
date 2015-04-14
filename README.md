@@ -31,7 +31,7 @@ auto sub = [](int a, int b) {return a - b;};
 // _1 is a placeholder for the first argument
 auto minus_one = std::bind(sub, _1, 1);
 ~~~
-Why not create a simple helper for this pattern of unimportant variable names?
+Why not create a simple helper for this pattern of unimportant argument names?
 ~~~JavaScript
 var λ = function(expr) {
 	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
