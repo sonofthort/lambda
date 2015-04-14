@@ -46,7 +46,7 @@ var sub = λ('a - b')
 var mul = λ('a * b')
 var div = λ('a / b')
 ~~~
-We've eliminated the argument naming duplication. After all, few would have cared if x and y or left and right were used instead of a and b. There's some overhead in creating these, but they perform just as well afterwards.
+We've eliminated the argument naming duplication. After all, we could just as well have used x and y or left and right in our functions. There's some overhead in creating these, but they perform just as well afterwards.
 
 This might be cute, but could we take on more verbose patterns as seen below?
 ~~~JavaScript
