@@ -1,23 +1,110 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions. λ hides the noise of common composition patterns.
+Use symbol λ in JavaScript to write succient functions. Hides the noise of common composition patterns.
 
 # Introduction
-The first version of the function was like this:
+Lets imagine we want to write some simple functions to wrap binary operators:
+~~~JavaScript
+var add = function(a, b) {return a + b}
+var sub = function(a, b) {return a - b}
+var mul = function(a, b) {return a * b}
+var div = function(a, b) {return a / b}
+~~~
+What do all of these functions have in common besides being binary?
+- They return a transformation upon their arguments.
+- Their readability is largely independent of their argument names (could have used x and y). What is really important is that we can match an argument to its usage.
+- They require relatively verbose keywords.
+Arrow functions clean this up a little bit:
+~~~JavaScript
+var add = (a, b) => a + b
+var sub = (a, b) => a - b
+var mul = (a, b) => a * b
+var div = (a, b) => a / b
+~~~
+However, one may beg the question, if there are cases where argument names don't really matter, then why do I have to keep defining the argument names anyways? Can't somebody just give me standard names so I don't have to think about it or repeat them?
+
+Some languages have addressed this in one form or another through placeholders, although not always exclusively for this purpose. They are commonly used in binding expressions:
+~~~C++
+using namespace std::placeholders;
+
+auto sub = [](int a, int b) {return a - b;};
+
+// _1 is a placeholder for the first argument
+auto minus_one = std::bind(sub, _1, 1);
+~~~
+Why not create a simple helper for this pattern of unimportant variable names?
 ~~~JavaScript
 var λ = function(expr) {
 	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
 }
-~~~
-This allows writing functions like this:
-~~~JavaScript
+
 var add = λ('a + b')
-
-add(8, 9) // returns 17
+var sub = λ('a - b')
+var mul = λ('a * b')
+var div = λ('a / b')
 ~~~
-The Function constructor takes argument names until the last parameter, which is the function body. This causes the arguments to bind to instances of a, b, c, etc.
+The Function constructor takes argument names up to the last parameter, which is the function body. This causes the arguments to bind to instances of a, b, c, etc in expr. There's some overhead in creating these functions, but in this case, they are created once at startup, after which are just as performant as the other forms.
 
-After adding some more complex features, I was able to write functions like this:
+That's kinda cool, but there has to be more this idea can offer. After all, in this form, the use cases are rather limited. Consider the following functions:
+~~~JavaScript
+var iv = function(array, func) {
+	var length = array.length
+	for (var i = 0; i < length; ++i) {
+		func(i, array[i])
+	}
+	// might as well return array so that we can chain off of the result
+	return array
+}
 
+var kv = function(object, func) {
+	for (var k in object) {
+		if (object.hasOwnProperty(k)) {
+			func(k, object[k])
+		}
+	}
+	return object
+}
+
+var object_size = function(object) {
+	var size = 0
+	kv(object, function() {++size})
+	return size
+}
+
+var zip = function(a, b) {
+	var result = []
+	iv(a, function(i, v) {
+		result.push([v, b[i]])
+	})
+	return result
+}
+
+// a short circuiting operation needs to hand roll a loop,
+// or needs another looping helper we didn't write here, and one which would do redundant branching.
+var any = function(array, pred) {
+	var length = array.length
+	for (var i = 0; i < length; ++i) {
+		if (pred(array[i])) {
+			return true
+		}
+	}
+	return false
+}
+
+
+~~~
+These would be a nightmare in the current form of λ. We would have a huge ugly string of code with zero syntax highlighting. So what do these functions have in common?
+- All but kv initialize a result variable.
+- They iterate through a collection to produce a result, sometimes needing to short circuit.
+- They return their result/something.
+- Argument naming somewhat matters, but the choices made were rather arbitrary (why not obj, arr, array1, array2, etc?).
+
+Perhaps we should wrap these patterns up as well. First of all, iteration standards like iv and kv should have a standard short syntax, and its not enough to just write an iv and kv function, because sometimes you want to short circuit. What if we could write these helpers like:
+~~~JavaScript
+var object_size = λ(0, λ.k(a, '++A'), A)
+var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
+var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
+~~~
+What the heck is going on here? A whole lot of confusion, but lets start with a single example (And hopefully eventually get our argument names back so we know what to pass the functions):
 ~~~JavaScript
 var keysAndValues = λ([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
 
