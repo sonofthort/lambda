@@ -22,7 +22,7 @@ var div = (a, b) => a / b
 ~~~
 However, one may beg the question, if there are cases where argument names don't really matter, then why do I have to keep defining the argument names anyways? Can't somebody just give me standard names so I don't have to think about it or repeat them?
 
-Some languages have addressed this in one form or another through placeholders, although not always exclusively for this purpose. They are commonly used in binding expressions:
+Some languages have addressed this in one form or another through placeholders, although not always explicitly for this purpose. They are commonly used in binding expressions:
 ~~~C++
 using namespace std::placeholders;
 
