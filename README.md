@@ -1,10 +1,12 @@
 # lambda
 Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns.
+
+# Example
 ~~~JavaScript
-var keysAndValues = Λ('object')([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
-~~~
-vs...
-~~~JavaScript
+var keysAndValues = λ([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
+
+// vs.
+
 var keysAndValues = function(object) {
 	var keys = []
 	var values = []
