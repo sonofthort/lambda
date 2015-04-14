@@ -8,14 +8,14 @@ var sub = function(a, b) {return a - b}
 var mul = function(a, b) {return a * b}
 var div = function(a, b) {return a / b}
 ~~~
-Now, lets do this with arrow functions:
+There is some duplication here. In fact, the introduction of arrow functions specifically addresses this:
 ~~~JavaScript
 var add = (a, b) => a + b
 var sub = (a, b) => a - b
 var mul = (a, b) => a * b
 var div = (a, b) => a / b
 ~~~
-Arrow functions cleaned up some of the duplication, but can we expand on this?
+However, can we take this even furthe?
 ~~~JavaScript
 var λ = function(expr) {
 	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
@@ -26,9 +26,9 @@ var sub = λ('a - b')
 var mul = λ('a * b')
 var div = λ('a / b')
 ~~~
-This eliminated the arbitrary variable names. After all, if we had used x and y, or left and right all along, few would have complained. There's some overhead in creating these functions, but once one, are just as performant.
+We've eliminated the argument naming duplication. After all, few would have complained if x and y or left and right were used instead of a and b.
 
-What is we have more complex patterns like the following?
+But what about more complex patterns like the following?
 ~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
@@ -76,8 +76,11 @@ var any = function(array, pred) {
 
 
 ~~~
-These would be a nightmare in the current form. Perhaps something like this:
+These would be a nightmare in the current form of λ, and arrow functions wouldn't have been a large improvement either. Perhaps we can wrap up iteration patterns and variable initialization/return patterns:
 ~~~JavaScript
+// add placeholders to the scope
+eval(λ.localPlaceholders())
+
 var iv = λ(λ.iv(a, b(i, v)), a)
 
 var kv = λ(λ.kv(a, b(k, v)), a)
@@ -88,27 +91,11 @@ var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
 
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 ~~~
-We really didn't even need iv or kv anymore. However, this looks confusing, and we lost the argument names. Lets dive into an example to understand what is going on:
+The unaccounted for variables are the placeholders. Examples of how placeholders work:
 ~~~JavaScript
-// we can use Λ to add comments, a good place for argument names
-// Λ returns λ, which continues to use a, b, c, etc, too keep the implementation tidy.
-
-var keysAndValues = Λ('object')([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
-
-keysAndValues({
-	left: 1,
-	right: -2
-}) // returns [['left', 'right'], [1, -2]], order depending on hash however
-~~~
-This assumes placeholders are applied to the local scope, which explain where the a, k, v, A, and B variables are coming from. Let's break this down:
-~~~JavaScript
-eval(λ.localPlaceholders()) // creates placeholders in current scope
-
+v.toString() // return 'v'
 A.push(k) // returns 'A.push(k)'
-~~~
-A is a placeholder, a function with toString() overloaded to return 'A', and the member 'push' returning 'A.push(...)'. Calling a placeholder has this effect:
-~~~JavaScript
-A(a, b) // returns 'A(a, b)'
+b(a) // returns 'b(a)'
 ~~~
 Break down:
 - Each parameter to λ is a line in the resulting function.
@@ -118,7 +105,7 @@ Break down:
 - λ.kv is one of 6 looping functions. They loop over a collection (either an array or an object, or either in KV's case), expanding into inlined for-loops.
 - [] and [A, B] are detected as arrays, and arrays are converted to strings such as '[]' and '[A, B]'.
 
-# more cool stuff
+# more examples
 ~~~JavaScript
 eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
 
