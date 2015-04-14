@@ -77,11 +77,12 @@ var any = function(array, pred) {
 
 
 ~~~
-These would be a nightmare in the current form of λ, and arrow functions wouldn't have been a large improvement either. Perhaps we can wrap up iteration patterns and variable initialization/return patterns:
+These would be a nightmare in the current form of λ, and arrow functions wouldn't have been a large improvement either. Perhaps we can wrap up iteration and variable initialization/return patterns as well:
 ~~~JavaScript
 // add placeholders to the scope
 eval(λ.localPlaceholders())
 
+// really don't even need iv/kv in this example anymore
 var iv = λ(λ.iv(a, b(i, v)), a)
 
 var kv = λ(λ.kv(a, b(k, v)), a)
