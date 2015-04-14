@@ -42,7 +42,7 @@ var sub = λ('a - b')
 var mul = λ('a * b')
 var div = λ('a / b')
 ~~~
-The Function constructor takes argument names up to the last parameter, which is the function body. In this case, the arguments bind to instances of a, b, c, etc in expr. There's some overhead in creating these functions, but in this case, they are created once at startup, after which are just as performant as the other forms.
+The Function constructor takes argument names up to the last parameter, which is the function body. In this case, the arguments bind to instances of a, b, c, etc in expr. There is some overhead in creating these functions, but they are created once at startup, after which are just as performant as the other forms.
 
 That's kinda cool, but there has to be more this idea can offer. After all, in this form, the use cases are rather limited. Consider the following functions:
 ~~~JavaScript
