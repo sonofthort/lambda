@@ -20,7 +20,7 @@ var sub = (a, b) => a - b
 var mul = (a, b) => a * b
 var div = (a, b) => a / b
 ~~~
-However, if there are cases where argument names don't really matter, then why do I have to keep defining the argument names anyways? Can't somebody just give me standard names so I don't have to think about it or repeat them?
+However, if cases exist where argument names don't really matter, then why do I have to keep defining the argument names anyways? Can't somebody just give me standard names so I don't have to think about it or repeat them?
 
 Some languages have addressed this in one form or another through placeholders, although not always explicitly for this purpose. They are commonly used in binding expressions:
 ~~~C++
