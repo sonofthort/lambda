@@ -1,5 +1,15 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns.
+Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns. After all, who wouldn't want to write code like this:
+~~~JavaScript
+var keysAndValues = λ([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
+
+// returns [['first', 'second'], [3, 4]], depending on hash
+keysAndValues({
+	'first': 3,
+	'second': 4
+})
+~~~
+
 # Introduction
 Lets imagine we want to write some simple functions to wrap binary operators:
 ~~~JavaScript
@@ -90,7 +100,7 @@ var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
 
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 ~~~
-The unaccounted for variables are the placeholders. Here's some more examples:
+The unaccounted for variables are the placeholders. Here's some examples:
 ~~~JavaScript
 // add placeholders to the scope
 eval(λ.localPlaceholders())
