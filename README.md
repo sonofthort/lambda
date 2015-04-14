@@ -137,7 +137,7 @@ make_interactive_webpage (
 ~~~
 
 # Overhead
-If you take a look at the source, you will notice that there is some non-trivial overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
+There is some non-trivial overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
 ~~~JavaScript
 var someFrequentlyCalledFunction = function(values) {
 	return values.map(λ('a + 1'))
