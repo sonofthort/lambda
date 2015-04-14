@@ -12,7 +12,7 @@ From a minimalist perspective, what do all of these functions have in common bes
 - They return a transformation upon their arguments.
 - Their readability is largely independent of their argument names (could have used x and y). What is really important is that we can match an argument to its usage.
 - They require relatively verbose keywords.
-- 
+
 Arrow functions clean this up a little bit:
 ~~~JavaScript
 var add = (a, b) => a + b
