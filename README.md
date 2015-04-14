@@ -8,32 +8,14 @@ var sub = function(a, b) {return a - b}
 var mul = function(a, b) {return a * b}
 var div = function(a, b) {return a / b}
 ~~~
-From a minimalist perspective, what do all of these functions have in common besides being binary operator wrappers?
-- They return a transformation upon their arguments.
-- Their readability is largely independent of their argument names (could have used x and y). What is really important is that we can match an argument to its usage.
-- They require relatively verbose keywords.
-
-Arrow functions clean this up a little bit:
+Now, lets do this with arrow functions:
 ~~~JavaScript
 var add = (a, b) => a + b
 var sub = (a, b) => a - b
 var mul = (a, b) => a * b
 var div = (a, b) => a / b
 ~~~
-However, if cases exist where argument names don't really matter, then why do I have to keep defining the argument names anyways? Can't somebody just give me standard names so I don't have to think about or repeat them?
-
-Some languages have addressed this in one form or another through placeholders, although not always explicitly for this purpose. They are commonly used in binding expressions:
-~~~C++
-// C++
-
-using namespace std::placeholders;
-
-auto sub = [](int a, int b) {return a - b;};
-
-// _1 is a placeholder for the first argument
-auto minus_one = std::bind(sub, _1, 1);
-~~~
-Why not create a simple helper for this pattern of unimportant argument names?
+Arrow functions cleaned up some of the duplication, but can we expand on this?
 ~~~JavaScript
 var λ = function(expr) {
 	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
@@ -44,9 +26,9 @@ var sub = λ('a - b')
 var mul = λ('a * b')
 var div = λ('a / b')
 ~~~
-The Function constructor takes argument names up to the last parameter, which is the function body. In this case, the arguments bind to instances of a, b, c, etc in expr. There is some overhead in creating these functions, but they are created once at startup, after which are just as performant as the other forms.
+This eliminated the arbitrary variable names. After all, if we had used x and y, or left and right all along, few would have complained. There's some overhead in creating these functions, but once one, are just as performant.
 
-That's kinda cool, but there has to be more this idea can offer. After all, in this form, the use cases are rather limited. Consider the following functions:
+What is we have more complex patterns like the following?
 ~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
@@ -94,29 +76,31 @@ var any = function(array, pred) {
 
 
 ~~~
-These would be a nightmare in the current form of λ. We would have a huge ugly string of code with zero syntax highlighting. So what do these functions have in common?
-- All but kv initialize a result variable.
-- They iterate through a collection to produce a result, sometimes needing to short circuit.
-- They return their result/something.
-- Argument naming somewhat matters, but the choices made were rather arbitrary (why not obj, arr, array1, array2, etc?).
-
-Perhaps we should wrap these patterns up as well. First of all, iteration standards like iv and kv should have a standard short syntax, and its not enough to just write an iv and kv function, because sometimes you want to short circuit. What if we could write these helpers like:
+These would be a nightmare in the current form. Perhaps something like this:
 ~~~JavaScript
+var iv = λ(λ.iv(a, b(i, v)), a)
+
+var kv = λ(λ.kv(a, b(k, v)), a)
+
 var object_size = λ(0, λ.k(a, '++A'), A)
+
 var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
+
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 ~~~
-What the heck is going on here? A whole lot of confusion, but lets start with a single example (And hopefully eventually get our argument names back so we know what to pass the functions):
+We really didn't even need iv or kv anymore. However, this looks confusing, and we lost the argument names. Lets dive into an example to understand what is going on:
 ~~~JavaScript
-var keysAndValues = λ([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
+// we can use Λ to add comments, a good place for argument names
+// Λ returns λ, which continues to use a, b, c, etc, too keep the implementation tidy.
+
+var keysAndValues = Λ('object')([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
 
 keysAndValues({
 	left: 1,
 	right: -2
 }) // returns [['left', 'right'], [1, -2]], order depending on hash however
 ~~~
-
-This also assumes placeholders are applied to the local scope, which explain where the a, A, B, k, and v variables are coming from. Let's break this down:
+This assumes placeholders are applied to the local scope, which explain where the a, k, v, A, and B variables are coming from. Let's break this down:
 ~~~JavaScript
 eval(λ.localPlaceholders()) // creates placeholders in current scope
 
@@ -137,9 +121,6 @@ Break down:
 # more cool stuff
 ~~~JavaScript
 eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
-
-// Use uppercase lambda, Λ, to add comments.
-// Comments pertaining to the required arguments are useful.
 
 // This function relies on the built-in javascript toString
 // function dumping the function in its readable JavaScript form.
