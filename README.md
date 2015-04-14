@@ -101,13 +101,9 @@ These would be a nightmare in the current form of λ, and arrow functions wouldn
 ~~~JavaScript
 // iv and kv not used anymore
 var iv = λ(λ.iv(a, b(i, v)), a)
-
 var kv = λ(λ.kv(a, b(k, v)), a)
-
 var object_size = λ(0, λ.k(a, '++A'), A)
-
 var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
-
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 ~~~
 The unaccounted for variables are the placeholders. Here's some examples:
