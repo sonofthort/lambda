@@ -79,9 +79,6 @@ var any = function(array, pred) {
 ~~~
 These would be a nightmare in the current form of λ, and arrow functions wouldn't have been a large improvement either. Perhaps we can wrap up iteration and variable initialization/return patterns as well:
 ~~~JavaScript
-// add placeholders to the scope
-eval(λ.localPlaceholders())
-
 // iv and kv not used anymore
 var iv = λ(λ.iv(a, b(i, v)), a)
 
@@ -93,8 +90,11 @@ var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
 
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 ~~~
-The unaccounted for variables are the placeholders. Examples of how placeholders work:
+The unaccounted for variables are the placeholders. Here's some more examples:
 ~~~JavaScript
+// add placeholders to the scope
+eval(λ.localPlaceholders())
+
 v.toString() // return 'v'
 A.push(k) // returns 'A.push(k)'
 b(a) // returns 'b(a)'
