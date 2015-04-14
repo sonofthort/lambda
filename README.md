@@ -82,7 +82,7 @@ These would be a nightmare in the current form of λ, and arrow functions wouldn
 // add placeholders to the scope
 eval(λ.localPlaceholders())
 
-// really don't even need iv/kv in this example anymore
+// iv and kv not used anymore
 var iv = λ(λ.iv(a, b(i, v)), a)
 
 var kv = λ(λ.kv(a, b(k, v)), a)
