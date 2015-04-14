@@ -28,7 +28,7 @@ var div = λ('a / b')
 ~~~
 We've eliminated the argument naming duplication. After all, few would have cared if x and y or left and right were used instead of a and b. There's some overhead in creating these, but they perform just as well afterwards.
 
-But what about more complex patterns like the following?
+This might be cute, but how could we take on patterns like these:
 ~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
