@@ -24,6 +24,7 @@ However, if cases exist where argument names don't really matter, then why do I 
 
 Some languages have addressed this in one form or another through placeholders, although not always explicitly for this purpose. They are commonly used in binding expressions:
 ~~~C++
+// C++
 using namespace std::placeholders;
 
 auto sub = [](int a, int b) {return a - b;};
