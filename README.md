@@ -1,14 +1,21 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns. After all, who wouldn't want to write code like this:
+Use symbol λ in JavaScript to write succient functions. Hides noise found in common composition patterns.
 ~~~JavaScript
-var keysAndValues = λ([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
-
-keysAndValues({
-	'first': 3,
-	'second': 4
-})
-
-// returns [['first', 'second'], [3, 4]], depending on hash
+var keysAndValues = Λ('object')([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
+~~~
+vs...
+~~~JavaScript
+var keysAndValues = function(object) {
+	var keys = []
+	var values = []
+	for (var k in object) {
+		if (object.hasOwnProperty(k)) {
+			keys.push(k)
+			values.push(object[k])
+		}
+	}
+	return [keys, values]
+}
 ~~~
 
 # Introduction
