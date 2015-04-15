@@ -1,7 +1,7 @@
 # lambda
 Use symbol λ in JavaScript to write succient functions.
 
-# Example
+# example
 ~~~JavaScript
 var iv = λ(λ.iv(a, b(i, v)), a)
 var kv = λ(λ.kv(a, b(k, v)), a)
@@ -112,7 +112,7 @@ make_interactive_webpage (
 )
 ~~~
 
-# Overhead
+# overhead
 There is some non-trivial overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
 ~~~JavaScript
 var someFrequentlyCalledFunction = function(values) {
