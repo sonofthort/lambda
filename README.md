@@ -68,9 +68,15 @@ The variables a, b, A, B, k, and v were placeholders.
 // add placeholders to the scope
 eval(λ.localPlaceholders())
 
-v.toString() // return 'v'
+v.toString() // returns 'v'
 A.push(k) // returns 'A.push(k)'
 b(a) // returns 'b(a)'
+
+// add placeholders with a 'λ' prefix
+eval(λ.localPlaceholders('λ'))
+
+λa.apply(λnil, λb, λA) // returns 'a.apply(null, b, A)'
+λa.push(λthat) // returns 'a.push(this)'
 ~~~
 # λ rules
 - Each parameter to λ is a line in the resulting function.
