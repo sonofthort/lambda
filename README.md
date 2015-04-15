@@ -10,7 +10,7 @@ var zip = λ([], λ.iv(a, A.push([v, b.at(i)])), A)
 var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
 var keysAndValues = λ([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
 
-vs...
+// vs.
 
 var iv = function(array, func) {
 	var length = array.length
