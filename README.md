@@ -17,7 +17,6 @@ var iv = function(array, func) {
 	for (var i = 0; i < length; ++i) {
 		func(i, array[i])
 	}
-	// might as well return array so that we can chain off of the result
 	return array
 }
 
