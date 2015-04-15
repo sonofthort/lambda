@@ -56,12 +56,10 @@ var any = function(array, pred) {
 var keysAndValues = function(object) {
 	var keys = []
 	var values = []
-	for (var k in object) {
-		if (object.hasOwnProperty(k)) {
-			keys.push(k)
-			values.push(object[k])
-		}
-	}
+	kv(object, function(k, v) {
+		keys.push(k)
+		values.push(v)
+	})
 	return [keys, values]
 }
 ~~~
@@ -112,14 +110,14 @@ make_interactive_webpage (
 ~~~
 
 # overhead
-There is some non-trivial overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
+There is some overhead in creating functions using λ. For this reason, λ should be avoided for "on the fly" function creation, such as this:
 ~~~JavaScript
 var someFrequentlyCalledFunction = function(values) {
 	return values.map(λ('a + 1'))
 }
 ~~~
-For this case, we could have easily written someFrequentlyCalledFunction using λ and avoided the "on the fly" problem, taking advantage of one-time initialization:
+For this case, we could have written someFrequentlyCalledFunction using λ and avoided the "on the fly" problem:
 ~~~JavaScript
 var someFrequentlyCalledFunction = Λ('values')(λa.map(λ('a + 1')))
 ~~~
-However, sometimes this isn't easy when a function is very large or contains large literals. λ should be used for somewhat simple functions, as the readability suffers as complexity increases.
+For cases such as large functions or functions containing large literals, λ might be avoided.
