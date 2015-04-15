@@ -1,5 +1,5 @@
 # lambda
-Use symbol λ in JavaScript to write compact functions in a style which reduces duplication patterns.
+Use symbol λ in JavaScript to write compact functions in a style which reduces duplication.
 
 # example
 ~~~JavaScript
