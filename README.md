@@ -3,53 +3,15 @@ Use symbol λ in JavaScript to write succient functions.
 
 # Example
 ~~~JavaScript
-var keysAndValues = λ([], [], λ.kv(λa, λA.push(λk), λB.push(λv)), [λA, λB])
+var iv = λ(λ.iv(a, b(i, v)), a)
+var kv = λ(λ.kv(a, b(k, v)), a)
+var object_size = λ(0, λ.k(a, A.inc()), A)
+var zip = λ([], λ.iv(a, A.push([v, b.at(i)])), A)
+var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
+var keysAndValues = λ([], [], λ.kv(a, A.push(k), B.push(v)), [A, B])
 
-// vs.
+vs...
 
-var keysAndValues = function(object) {
-	var keys = []
-	var values = []
-	for (var k in object) {
-		if (object.hasOwnProperty(k)) {
-			keys.push(k)
-			values.push(object[k])
-		}
-	}
-	return [keys, values]
-}
-~~~
-
-# Explanation
-Lets imagine we want to write some binary operator wrappers:
-~~~JavaScript
-var add = function(a, b) {return a + b}
-var sub = function(a, b) {return a - b}
-var mul = function(a, b) {return a * b}
-var div = function(a, b) {return a / b}
-~~~
-There is some duplication here. In fact, the introduction of arrow functions specifically addresses this:
-~~~JavaScript
-var add = (a, b) => a + b
-var sub = (a, b) => a - b
-var mul = (a, b) => a * b
-var div = (a, b) => a / b
-~~~
-But can we take this even further?
-~~~JavaScript
-var λ = function(expr) {
-	return new Function('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'return ' + expr)
-}
-
-var add = λ('a + b')
-var sub = λ('a - b')
-var mul = λ('a * b')
-var div = λ('a / b')
-~~~
-We've eliminated the argument naming duplication. After all, we could have just as well used *x* and *y* or *left* and *right* in our original functions. There's some overhead in creating these functions, but afterwards, are just as performant as our previous functions.
-
-This might be cute, but could we take it even further and extract patterns found here:
-~~~JavaScript
 var iv = function(array, func) {
 	var length = array.length
 	for (var i = 0; i < length; ++i) {
@@ -82,9 +44,6 @@ var zip = function(a, b) {
 	return result
 }
 
-// a short circuiting operation needs to hand roll a loop,
-// or needs another looping helper we didn't write here
-// and one with its own added overhead
 var any = function(array, pred) {
 	var length = array.length
 	for (var i = 0; i < length; ++i) {
@@ -95,17 +54,19 @@ var any = function(array, pred) {
 	return false
 }
 
-
+var keysAndValues = function(object) {
+	var keys = []
+	var values = []
+	for (var k in object) {
+		if (object.hasOwnProperty(k)) {
+			keys.push(k)
+			values.push(object[k])
+		}
+	}
+	return [keys, values]
+}
 ~~~
-These would be a nightmare in the current form of λ, and arrow functions wouldn't help much either. What if we could write the functions like this:
-~~~JavaScript
-var iv = λ(λ.iv(a, b(i, v)), a)
-var kv = λ(λ.kv(a, b(k, v)), a)
-var object_size = λ(0, λ.k(a, '++A'), A)
-var zip = λ([], λ.iv(a, A.push([v, 'b[i]'])), A)
-var any = λ(λ.iv(a, λ.fi(b(v), λ.r(true))), false)
-~~~
-The unaccounted for variables are the placeholders. Here's some examples:
+The variables a, b, A, B, k, v, all were placeholders.
 ~~~JavaScript
 // add placeholders to the scope
 eval(λ.localPlaceholders())
@@ -114,7 +75,7 @@ v.toString() // return 'v'
 A.push(k) // returns 'A.push(k)'
 b(a) // returns 'b(a)'
 ~~~
-Break down:
+# λ rules
 - Each parameter to λ is a line in the resulting function.
 - Lines that do not begin with some control statement (for, if, return, etc) are treated as variable initializations.
 - The first variable is named A for you, the second named B, and so on.
