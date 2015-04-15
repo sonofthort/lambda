@@ -1,5 +1,5 @@
 # lambda
-Use symbol λ in JavaScript to write succient functions.
+Use symbol λ in JavaScript to write compact functions in a style which reduces common duplication patterns.
 
 # example
 ~~~JavaScript
