@@ -66,7 +66,7 @@ var keysAndValues = function(object) {
 	return [keys, values]
 }
 ~~~
-The variables a, b, A, B, k, v, all were placeholders.
+The variables a, b, A, B, k, and v were placeholders.
 ~~~JavaScript
 // add placeholders to the scope
 eval(λ.localPlaceholders())
