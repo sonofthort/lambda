@@ -90,7 +90,7 @@ eval(λ.localPlaceholders('λ'))
 ~~~JavaScript
 eval(λ.localPlaceholders('λ')) // prefixes placeholders with 'λ'
 
-// Use upper case λ, Λ, to add comments, such as the typically expected arguments
+// Use upper case λ, Λ, to add comments, typically pertaining to the expected arguments
 
 // This function relies on the built-in javascript toString
 // function dumping the function in its readable JavaScript form.
