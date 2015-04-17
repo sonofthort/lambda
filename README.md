@@ -72,7 +72,7 @@ v.toString() // returns 'v'
 A.push(k) // returns 'A.push(k)'
 b(a) // returns 'b(a)'
 
-// add placeholders with a 'λ' prefix
+// add placeholders with a prefix
 eval(λ.localPlaceholders('λ'))
 
 λa.apply(λnil, λb, λA) // returns 'a.apply(null, b, A)'
