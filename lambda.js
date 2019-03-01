@@ -1,16 +1,8 @@
-﻿// Created by Eric Thortsen, see LICENSE or https://github.com/sonofthort/lambda 
+﻿'use stict';
 
-lambda = {}
+// Created by Eric Thortsen, see LICENSE or https://github.com/sonofthort/λ 
 
-lambda.lowercaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
-
-lambda.uppercaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-	'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
-
-lambda.letters = lambda.lowercaseLetters.concat(lambda.uppercaseLetters)
-
-lambda.DEBUG = false
+λ = {}
 
 λ = function() {
 	var lines = []
@@ -40,12 +32,12 @@ lambda.DEBUG = false
 					case 'var':
 					case 'with':
 					case 'while': break
-					default: line = (i < last ? 'var ' + lambda.uppercaseLetters[i] + ' = ' : 'return ') + line
+					default: line = (i < last ? 'var ' + λ.uppercaseLetters[i] + ' = ' : 'return ') + line
 				}
 				lines.push(header + line)
 			}
 		}
-		if (lambda.DEBUG) {
+		if (λ.DEBUG) {
 			lines.push('try {')
 			addLines(arguments, '\t')
 			lines.push('} catch(e) {')
@@ -63,9 +55,19 @@ lambda.DEBUG = false
 	}
 }
 
+λ.DEBUG = false
+
 Λ = function(comments) {
 	return λ
 }
+
+λ.lowercaseLetters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+	'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+
+λ.uppercaseLetters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+	'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+λ.letters = λ.lowercaseLetters.concat(λ.uppercaseLetters)
 
 λ.k = function(o) {
 	var k = 'k'
@@ -148,7 +150,7 @@ lambda.DEBUG = false
 	return 'Array.prototype.slice.call(arguments, ' + (begin ? begin : 0) + ')'
 }
 
-lambda.each = λ(λ.KV('a', 'b(v, k)'), 'a')
+λ.each = λ(λ.KV('a', 'b(v, k)'), 'a')
 
 λ.placeholders = {}
 
@@ -178,13 +180,13 @@ lambda.each = λ(λ.KV('a', 'b(v, k)'), 'a')
 ;[	['nil', 'null'],
 	['that', 'this'],
 	['args', 'arguments']].
-	concat(lambda.letters.map(λ('[a, a]'))).
+	concat(λ.letters.map(λ('[a, a]'))).
 	forEach(λ('λ.addPlaceholder(a[0], a[1])'))
 
 λ.localPlaceholders = function(header) {
 	header = header || ''
 	var vars = []
-	lambda.each(λ.placeholders, function(v, k) {
+	λ.each(λ.placeholders, function(v, k) {
 		vars.push(header + k + ' = λ.placeholders.' + k)
 	})
 	return 'var ' + vars.join(', ')
