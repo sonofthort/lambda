@@ -183,8 +183,8 @@
 	concat(λ.letters.map(λ('[a, a]'))).
 	forEach(λ('λ.addPlaceholder(a[0], a[1])'))
 
-λ.localPlaceholders = function(header) {
-	header = header || ''
+λ.localPlaceholders = function(prefix) {
+	prefix = prefix || ''
 	var vars = []
 	λ.each(λ.placeholders, function(v, k) {
 		vars.push(header + k + ' = λ.placeholders.' + k)
